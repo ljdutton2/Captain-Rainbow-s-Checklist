@@ -6,6 +6,7 @@ def create(item):
 # READ
 def read(index):
     item = checklist[int(index)]
+    print(item)
 
 #UPDATE
 def update(index,item):
@@ -15,12 +16,11 @@ def update(index,item):
 def destroy(index):
     checklist.pop(index)
 
-def printChecklist():
+def list_all_items():
     i = 0
     for item in checklist:
         print("{} {}".format(i,checklist))
         i += 1
-
 
 def mark_completed(index):
 
@@ -28,26 +28,45 @@ def mark_completed(index):
 
 
 def select(function_code):
-    if function_code == "C":
-        input_item = user_input("Input item:")
-        create(input_item)
+    if function_code.lower() == "c":
+        input_item = user_input("Input item: ")
+        try: create(input_item)
+        except:("Not a valid syntax")
 
-    elif function_code == "R":
-        item_index = user_input("Index Number?")
+    elif function_code.lower() == "r":
+        item_index = user_input("Index Number? ")
 
-        read(item_index)
+        try: read(item_index)
+        except: print("Not a valid index")
 
-    elif function_code == "P":
+    elif function_code.lower() == "p":
         list_all_items()
+
+    elif function_code.lower() == "q":
+        return False
+
+    elif function_code.lower() == "u":
+        item_index = user_input("input index")
+        updated_item = user_input("Input new item")
+        try:
+            update(item_index,updated_item)
+        except:
+            print ("Not a valid index")
 
     else:
         print("Unknown option")
 
+    return True
 
 def user_input(prompt):
     user_input = input(prompt)
     return user_input
 
+running = True
+while running:
+    selection = user_input(
+    "C to add to list \nR to read from list \nP to display list \nQ to quit \n")
+    running = select(selection)
 
 
 def test():
@@ -72,17 +91,6 @@ def test():
     print(user_value)
 
 
-running = True
-while running:
-    selection = user_input(
-    "Press C to add to list, R to read from list and P to display list")
-    select(selection)
-
 index = 0
-
-def list_all_items():
-    for list_item in checklist:
-      print(" {} {} ".format(index,list_item))
-index += 1
 
 list_all_items()
