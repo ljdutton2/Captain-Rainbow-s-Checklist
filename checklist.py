@@ -45,6 +45,11 @@ def select(function_code):
     elif function_code.lower() == "q":
         return False
 
+    elif     elif function_code.lower() == "m":
+        item_index = user_input("Index Number: ")
+        mark_completed(int(item_index))
+        return True
+
     elif function_code.lower() == "u":
         item_index = user_input("input index")
         updated_item = user_input("Input new item")
@@ -52,6 +57,8 @@ def select(function_code):
             update(item_index,updated_item)
         except:
             print ("Not a valid index")
+
+
 
     else:
         print("Unknown option")
