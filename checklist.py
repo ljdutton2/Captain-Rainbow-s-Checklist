@@ -45,7 +45,7 @@ def select(function_code):
     elif function_code.lower() == "q":
         return False
 
-    elif     elif function_code.lower() == "m":
+    elif function_code.lower() == "m":
         item_index = user_input("Index Number: ")
         mark_completed(int(item_index))
         return True
