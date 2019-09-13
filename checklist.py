@@ -17,53 +17,58 @@ def destroy(index):
     checklist.pop(index)
 
 def list_all_items():
-    i = 0
+    index = 0
     for item in checklist:
-        print("{} {}".format(i,checklist))
-        i += 1
+        print("{} {}\n".format(index,item))
+        index += 1
 
 def mark_completed(index):
-
-    update(index, "V" + checklist[index])
+    update(index, "√ " + checklist[index])
 
 
 def select(function_code):
-    if function_code.lower() == "c":
-        input_item = user_input("Input item: ")
-        try: create(input_item)
-        except:("Not a valid syntax")
+    try:
 
-    elif function_code.lower() == "r":
-        item_index = user_input("Index Number? ")
+        if function_code.lower() == "c":
+            input_item = user_input("Input item: ")
+            create(input_item)
+            return True
 
-        try: read(item_index)
-        except: print("Not a valid index")
+        elif function_code.lower() == "r":
+            item_index = user_input("Index Number? ")
+            read(item_index)
+            return True
 
-    elif function_code.lower() == "p":
-        list_all_items()
+        elif function_code.lower() == "d":
+            input_index = user_input("Index Number? ")
+            destroy(int(input_index))
+            return True
 
-    elif function_code.lower() == "q":
-        return False
+        elif function_code.lower() == "u":
+            item_index = user_input("Index Number? ")
+            input_item = user_input("Input item: ")
+            update(int(item_index),str(input_item))
+            return True
 
-    elif function_code.lower() == "m":
-        item_index = user_input("Index Number: ")
-        mark_completed(int(item_index))
+        elif function_code.lower() == "p":
+            list_all_items()
+            return True
+
+        elif function_code.lower() == "q":
+            return False
+
+        elif function_code.lower() == "m":
+            item_index = user_input("Index Number: ")
+            mark_completed(int(item_index))
+            return True
+
+        else:
+            print("Unknown option")
+            return True
+
+    except IndexError:
+        print("This is not a valid input, please try again: ")
         return True
-
-    elif function_code.lower() == "u":
-        item_index = user_input("input index")
-        updated_item = user_input("Input new item")
-        try:
-            update(item_index,updated_item)
-        except:
-            print ("Not a valid index")
-
-
-
-    else:
-        print("Unknown option")
-
-    return True
 
 def user_input(prompt):
     user_input = input(prompt)
@@ -72,7 +77,7 @@ def user_input(prompt):
 running = True
 while running:
     selection = user_input(
-    "C to add to list \nR to read from list \nP to display list \nQ to quit \n")
+    "C to add to list \nR to read from list \nP to display list \nQ to quit \nU to update an item\nD to destroy item\nM to mark complete\n")
     running = select(selection)
 
 
